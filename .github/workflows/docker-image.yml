@@ -14,7 +14,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - run: echo \"REPOSITORY_NAME=$(echo "${{ github.REPOSITORY }}" | awk -F / '{print $2}' | sed -e "s/:refs//")\" >> $GITHUB_ENV
+    - run: echo "${{ github.REPOSITORY }}"
+      shell: bash
+    - run: echo "REPOSITORY_NAME=$(echo \"${{ github.REPOSITORY }}\" | awk -F / '{print $2}' | sed -e \"s/:refs//\")" >> $GITHUB_ENV
       shell: bash
 
     - run: echo "${{ github.REPOSITORY_NAME }}"
