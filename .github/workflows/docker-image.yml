@@ -14,16 +14,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - run: echo "${{ github.REPOSITORY }}"
-      shell: bash
-    - run: echo "REPOSITORY_NAME=$(echo ${{ github.REPOSITORY }})"
-      shell: bash
-    - run: echo "REPOSITORY_NAME=$(echo ${{ github.REPOSITORY }} | awk -F / '{print $2}')"
-      shell: bash
     - run: echo "REPOSITORY_NAME=$(echo ${{ github.REPOSITORY }} | awk -F / '{print $2}')" >> $GITHUB_ENV
       shell: bash
-
     - run: echo "${{ env.REPOSITORY_NAME }}"
+      shell: bash
+    - run: echo "SHORT_SHA=$(git -C . rev-parse --short HEAD)"
+      shell: bash
+    - run: echo "SHORT_SHA=$(git -C . rev-parse --short HEAD)" >> $GITHUB_ENV
+      shell: bash
+    - run: echo "${{ env.SHORT_SHA }}"
       shell: bash
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag ${{ env.REPOSITORY_NAME }}:${{github.sha}}
