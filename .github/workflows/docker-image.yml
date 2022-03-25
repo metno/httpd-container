@@ -14,10 +14,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - run: echo ::set-env name=REPOSITORY_NAME::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}' | sed -e "s/:refs//")
+    - run: echo \"REPOSITORY_NAME=$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}' | sed -e "s/:refs//")\" >> $GITHUB_ENV
       shell: bash
 
-    - run: echo "$REPOSITORY_NAME"
+    - run: echo "${{ github.REPOSITORY_NAME }}"
       shell: bash
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag $REPOSITORY_NAME:${{github.sha}}
+      run: docker build . --file Dockerfile --tag ${{ github.REPOSITORY_NAME }}:${{github.sha}}
