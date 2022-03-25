@@ -28,7 +28,7 @@ RUN apt-get update \
   && apt-get install -y apache2 dumb-init \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
-  && a2enmod fcgid headers \
+  && a2enmod headers \
   && a2dismod -f auth_basic authn_file authn_core authz_host authz_user autoindex dir status \
   && rm /etc/apache2/mods-enabled/alias.conf \
   && mkdir -p $APACHE_RUN_DIR $APACHE_LOCK_DIR $APACHE_LOG_DIR \
