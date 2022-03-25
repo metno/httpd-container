@@ -18,11 +18,9 @@ jobs:
       shell: bash
     - run: echo "${{ env.REPOSITORY_NAME }}"
       shell: bash
-    - run: echo "SHORT_SHA=$(git -C . rev-parse --short HEAD)"
-      shell: bash
     - run: echo "SHORT_SHA=$(git -C . rev-parse --short HEAD)" >> $GITHUB_ENV
       shell: bash
     - run: echo "${{ env.SHORT_SHA }}"
       shell: bash
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ${{ env.REPOSITORY_NAME }}:${{github.sha}}
+      run: docker build . --file Dockerfile --tag ${{ env.REPOSITORY_NAME }}:${{ env.SHORT_SHA}} --tag ${{ env.REPOSITORY_NAME }}:latest
