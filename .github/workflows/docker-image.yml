@@ -23,7 +23,7 @@ jobs:
     - run: echo "REPOSITORY_NAME=$(echo ${{ github.REPOSITORY }} | awk -F / '{print $2}')" >> $GITHUB_ENV
       shell: bash
 
-    - run: echo "${{ github.REPOSITORY_NAME }}"
+    - run: echo "${{ env.REPOSITORY_NAME }}"
       shell: bash
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag ${{ github.REPOSITORY_NAME }}:${{github.sha}}
+      run: docker build . --file Dockerfile --tag ${{ env.REPOSITORY_NAME }}:${{github.sha}}
