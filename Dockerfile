@@ -25,10 +25,11 @@ ENV APACHE_CONFDIR=/etc/apache2 \
 
 RUN apt-get update \
   && DEBIAN_FRONTEND="noninteractive" TZ="Europe/Oslo" apt-get -y install tzdata \
-  && apt-get install -y apache2 dumb-init \
+  && apt-get install -y apache2 apache2-dev python3-pip dumb-init \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
-  && a2enmod headers rewrite proxy_uwsgi proxy_http\
+  && pip install mod_wsgi \
+  && a2enmod headers rewrite proxy_uwsgi proxy_http wsgi\
   && a2dismod -f auth_basic authn_file authn_core authz_host authz_user autoindex dir status \
   && rm /etc/apache2/mods-enabled/alias.conf \
   && mkdir -p $APACHE_RUN_DIR $APACHE_LOCK_DIR $APACHE_LOG_DIR \
