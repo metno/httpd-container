@@ -28,7 +28,7 @@ RUN apt-get update \
   && apt-get install -y apache2 apache2-dev python3-pip dumb-init \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
-  && pip install mod_wsgi \
+  && pip install mod_wsgi jinja2 \
   && mod_wsgi-express install-module > /etc/apache2/mods-available/wsgi.load \
   && a2enmod headers rewrite proxy_uwsgi proxy_http wsgi\
   && a2dismod -f auth_basic authn_file authn_core authz_host authz_user autoindex dir status \
