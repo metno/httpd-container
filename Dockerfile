@@ -39,9 +39,9 @@ RUN apt-get update \
        s!^(\s*CustomLog)\s+\S+!\1 /proc/self/fd/1!g; \
        s!^(\s*ErrorLog)\s+\S+!\1 /proc/self/fd/2!g; \
        ' '{}' ';' \
-  && sed -ri 's!<VirtualHost\s\*:80>!<VirtualHost *:8080>!g' /etc/apache2/sites-available/000-default.conf \
-  && sed -ri 's!Listen\s80$!Listen 8080!g' /etc/apache2/ports.conf
+  && sed -ri 's!<VirtualHost\s\*:80>!<VirtualHost *:8079>!g' /etc/apache2/sites-available/000-default.conf \
+  && sed -ri 's!Listen\s80$!Listen 8079!g' /etc/apache2/ports.conf
 
-EXPOSE 8080
+EXPOSE 8079
 
 CMD ["/usr/bin/dumb-init", "--", "apache2", "-DFOREGROUND"]
